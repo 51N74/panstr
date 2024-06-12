@@ -8,9 +8,8 @@ async function getBlogs(){
 export default async function Page() {
   const blogs = await getBlogs()
   return (
-      <div>
-          Hello Panstr
-
+      <div className="container mx-auto px-4 h-full">
+          
           {
             blogs.map((blog,index)=>(
               <Link href={`/blog/${blog.id}`}>

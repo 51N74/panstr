@@ -13,7 +13,7 @@ export default  async function Page({params}) {
             <p> Body: {blog.content}</p>
             <p>Author: {blog.name}</p>
 
-            <Link href="/">Back</Link>
+            <Link href="/"><button class="btn">Button</button></Link>
         </>
     );
 }
