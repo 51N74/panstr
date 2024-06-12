@@ -8,17 +8,21 @@ async function getBlogs(){
 export default async function Page() {
   const blogs = await getBlogs()
   return (
-      <div className="container mx-auto px-4 h-full">
+      <div>
           
           {
             blogs.map((blog,index)=>(
+
+             
+             <div className="w-1/2 m-4" key={index}>
               <Link href={`/blog/${blog.id}`}>
-              <div key={index}>
+              <div >
                 {blog.id}
                 {blog.title}
                 {blog.name}
               </div>
               </Link>
+              </div>   
             ))
           }  
       </div>
