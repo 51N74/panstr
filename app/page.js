@@ -22,9 +22,11 @@ export default async function Page() {
                 {blog.name}
               </div>
               </Link>
-              </div>   
+              </div>         
             ))
           }  
+
+<a href="/api/auth/login">Login</a>
       </div>
   );
 }

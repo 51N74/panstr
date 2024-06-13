@@ -1,6 +1,7 @@
+
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,12 +13,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html data-theme="nord" lang="en" >
+
+<UserProvider>
       <body className={inter.className}>
         
       <div className="container h-full">
       <div className="navbar bg-base-100">
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl">Panstr</a>
+    <a className="btn btn-ghost text-xl" href="/">Panstr</a>
   </div>
   <div className="flex-none gap-2">
     <div className="form-control">
@@ -31,13 +34,13 @@ export default function RootLayout({ children }) {
       </div>
       <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
         <li>
-          <a className="justify-between">
+          <a className="justify-between" href="/profile">
             Profile
             <span className="badge">New</span>
           </a>
         </li>
         <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li><a href="/api/auth/logout">Logout</a></li>
       </ul>
     </div>
   </div>
@@ -69,6 +72,7 @@ export default function RootLayout({ children }) {
         </div>  
 
         </body>
+        </UserProvider>
     </html>
   );
 }
