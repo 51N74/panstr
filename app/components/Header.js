@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { getSession } from '@auth0/nextjs-auth0';
+
 
 
 export default function Header() {
@@ -12,6 +12,12 @@ export default function Header() {
       };
 
 
+      let greetingMessage;
+      if (isLogin) {
+        greetingMessage = 'Welcome back!';
+      } else {
+        greetingMessage = 'Please log in.';
+      }
     
   return (
     <>
@@ -34,9 +40,26 @@ export default function Header() {
         </div>
 
         <div>
-        {isLogin ? <a href="/api/auth/logout">Logout</a> : <a href="/api/auth/login">Login</a>}
+        
     </div>
         
+    <div>
+
+   
+
+      {/* <button onClick={showLogin}>
+      {!isLogin ? <a href="/api/auth/login">Login</a> : 'Logout'}
+        
+      </button> */}
+      
+    </div>
+
+    <div>
+      <h1>{greetingMessage}</h1>
+      <button onClick={() => setIsLogin(!isLogin)}>
+        {isLogin ? 'Log out' : 'Log in'}
+      </button>
+    </div>
 
 
         <div className="dropdown dropdown-end">

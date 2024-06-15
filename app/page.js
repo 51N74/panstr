@@ -26,7 +26,7 @@ export default async function Page() {
             ))
           }  
 
-<a href="/api/auth/login">Login</a>
+
       </div>
   );
 }
