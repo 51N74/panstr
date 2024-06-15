@@ -14,16 +14,16 @@ export default function Header() {
           </a>
         </div>
         <div className="flex-none gap-2">
-          <div className="form-control">
+        {/* <div className="form-control">
             <input
               type="text"
               placeholder="Search"
               className="input input-bordered w-24 md:w-auto"
             />
-          </div>
+          </div> */}
 
           <Link href="/api/auth/login">
-          <div>Login</div>
+          <button class="btn btn-outline btn-accent">Login</button>
           </Link>
          
         </div>
@@ -41,11 +41,7 @@ export default function Header() {
         </div>
         <div className="flex-none gap-2">
           <div className="form-control">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input input-bordered w-24 md:w-auto"
-            />
+          <button class="btn btn-outline btn-primary">Create Post</button>
           </div>
           <div className="dropdown dropdown-end">
             <div
