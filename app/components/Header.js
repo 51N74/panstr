@@ -14,7 +14,7 @@ export default function Header() {
           </a>
         </div>
         <div className="flex-none gap-2">
-        {/* <div className="form-control">
+          {/* <div className="form-control">
             <input
               type="text"
               placeholder="Search"
@@ -23,9 +23,8 @@ export default function Header() {
           </div> */}
 
           <Link href="/api/auth/login">
-          <button class="btn btn-outline btn-accent">Login</button>
+            <button class="btn btn-outline btn-accent">Login</button>
           </Link>
-         
         </div>
       </div>
     );
@@ -41,7 +40,9 @@ export default function Header() {
         </div>
         <div className="flex-none gap-2">
           <div className="form-control">
-          <button class="btn btn-outline btn-primary">Create Post</button>
+            <Link href="/create">
+              <button class="btn btn-outline btn-primary">Create Post</button>
+            </Link>
           </div>
           <div className="dropdown dropdown-end">
             <div
@@ -50,10 +51,8 @@ export default function Header() {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                
                 <img src={user.picture} alt={user.name} />
               </div>
-              
             </div>
             <ul
               tabIndex={0}
