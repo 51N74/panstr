@@ -45,10 +45,7 @@ export default function Header() {
         
     <div>
 
-      {/* <button onClick={showLogin}>
-      {!isLogin ? <a href="/api/auth/login">Login</a> : 'Logout'}
-        
-      </button> */}
+    
       
     </div>
 
