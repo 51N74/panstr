@@ -20,7 +20,6 @@ export default function RootLayout({ children }) {
           <div className="container h-full">
             <Header />
               {children}
-              
             <Footer />
           </div>
         </body>

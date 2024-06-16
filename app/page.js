@@ -149,7 +149,7 @@ export default async function Page() {
           <div className="bg-slate-100">
           {blogs.map((blog, index) => (
         <div className="" key={index}>
-          <Link href={`/blog/${blog.id}`}>
+          <Link href={`/contents/blog/${blog.id}`}>
             <div class="p-2 border-b-2 border-indigo-100">        
               <p>{blog.title}</p>    
               

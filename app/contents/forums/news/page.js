@@ -4,15 +4,15 @@ export default function Page() {
   return (
     <div>
         {/*Breadcrumb*/}
-      <div className="text-sm breadcrumbs mx-4">
+      <div className="text-sm breadcrumbs mx-4 mb-4">
         <ul>
           <li>
             <a>Home</a>
           </li>
           <li>
-            <a>Documents</a>
+            <a>Forums</a>
           </li>
-          <li>Add Document</li>
+          
         </ul>
       </div>
       <div class="mb-8">
@@ -34,7 +34,7 @@ export default function Page() {
                 <td>
                   <Link href="/contents/forums/news">
                     <p>News</p>
-                    <p>ประกาศจากทีมงาน</p>
+                    <p>ประกาศจากทีมงาน1</p>
                   </Link>
                 </td>
                 <td>Quality Control Specialist</td>
@@ -43,8 +43,8 @@ export default function Page() {
               <tr>
                 <td>
                   <div>
-                    <p>Main Forum</p>
-                    <p>พูดคุยสบาย ๆ</p>
+                    <p>Update v.2</p>
+                    <p>ประกาศจากทีมงาน2</p>
                   </div>
                 </td>
                 <td>Desktop Support Technician</td>
