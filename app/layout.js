@@ -2,11 +2,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
-import Footer from './components/Footer.js'
-import Header from './components/Header.js'
+import Footer from "./components/Footer.js";
+import Header from "./components/Header.js";
 
 const inter = Inter({ subsets: ["latin"] });
-
 
 export const metadata = {
   title: "Panstr",
@@ -19,11 +18,10 @@ export default function RootLayout({ children }) {
       <UserProvider>
         <body className={inter.className}>
           <div className="container h-full">
-            <Header/>
-
-            <div className="container px-5 w-1/2 ">{children}</div>
-
-            <Footer/>
+            <Header />
+              {children}
+              
+            <Footer />
           </div>
         </body>
       </UserProvider>
