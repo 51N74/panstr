@@ -13,7 +13,7 @@ export async function GET(request, { params }) {
 
     return Response.json(post);
   } catch (error) {
-    return Response.json(error);
+    return Response.json(error, { status: 500 });
   }
 }
 
