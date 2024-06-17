@@ -2,6 +2,7 @@ import Link from "next/link";
 
 export default function Create() {
   return (
+    <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <form>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
@@ -301,5 +302,6 @@ export default function Create() {
         </button>
       </div>
     </form>
+    </div>
   )
 }
