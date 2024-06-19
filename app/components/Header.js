@@ -22,9 +22,7 @@ export default function Header() {
             />
           </div> */}
 
-<Link href="/create">
-            <button class="btn btn-outline btn-accent">Create</button>
-          </Link>
+
           <Link href="/api/auth/login">
             <button class="btn btn-outline btn-accent">Login</button>
           </Link>

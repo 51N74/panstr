@@ -1,6 +1,9 @@
+
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
+
+
 
 export async function GET (){
     try {
@@ -9,8 +12,6 @@ export async function GET (){
     } catch (error) {
         return Response.json(error)
     }
-
-    
 }
 
 export  async function POST (request){
@@ -19,7 +20,8 @@ export  async function POST (request){
   const newPost = await prisma.post.create({
     data:{
         title,
-        content
+        content,
+        
     }
  })
  return Response.json((newPost,{message: "Create Success ful"}))

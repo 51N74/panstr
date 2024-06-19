@@ -1,19 +1,50 @@
+'use client'
 import axios from "axios";
 import Link from "next/link";
-async function getBlog(id){
-    const response = await axios.get(`https://6664041f932baf9032a9ab94.mockapi.io/blog/${id}`)
-    return response.data
+import { useEffect,useState } from "react";
+
+const Blog = () =>{
+    const [blog, setBlog] = useState([])
+    useEffect(() => {
+        getBlog()
+      }, [])
+
+
+const getBlog = async(id)=>{
+    const response = await axios.get(`/api/posts/${id}`)
+    setBlog(response.data)
+    
   }
 
-export default  async function Page({params}) {
-    const blog = await getBlog(params.id)
     return (
         <>
+        <div>
+        {/*Breadcrumb*/}
+      <div className="text-sm breadcrumbs mx-4 mb-4">
+        <ul>
+          <li>
+            <a>Home</a>
+          </li>
+          <li>
+            <a>Forums</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="mb-8">
+        <h3 class="text-xl bg-slate-300 p-2">{blog.title}</h3>
+
+        <div className="overflow-x-auto">
+         {blog.createdAt}
+        </div>
+      </div>
+    </div>
             <h1>Title: {blog.title}</h1>
             <p> Body: {blog.content}</p>
-            <p>Author: {blog.name}</p>
+            <p>Author: {blog.author}</p>
 
-            <Link href="/"><button class="btn">Button</button></Link>
+            
         </>
     );
 }
+export default Blog

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Create() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [author, setAuthor] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e) => {

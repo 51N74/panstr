@@ -1,7 +1,39 @@
-import Link from "next/link";
+'use client'
 
-export default function Page() {
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import Link from 'next/link'
+
+  
+  const List = ()=>{
+    const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    fetchPosts()
+  }, [])
+
+  const fetchPosts = async () => {
+    try {
+      const res = await axios.get('/api/posts')
+      setPosts(res.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const deletePost = async (id) => {
+    try {
+      await axios.delete(`/api/posts/${id}`)
+      fetchPosts()
+    } catch (error) {
+      console.error('Failed to delete the post', error)
+    }
+  }
+
+ 
+
+  
   return (
+    
     <div>
         {/*Breadcrumb*/}
       <div className="text-sm breadcrumbs mx-4 mb-4">
@@ -29,58 +61,37 @@ export default function Page() {
             </thead>
 
             <tbody className="bg-slate-100">
-              {/* row 1 */}
-              <tr>
-                <td>
-                  <Link href="/contents/forums/news">
-                    <p>News</p>
-                    <p>ประกาศจากทีมงาน1</p>
+            {posts.map((post) => (
+              <tr key={post.id}>
+
+                <Link href={`/contents/blog/${post.id}`}>
+                  
+                   <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">
+                    {post.title}
+                  </div>
+                </td> </Link>
+               
+
+
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  {post.author}
+
+                  {/* <Link
+                    className="text-indigo-600 hover:text-indigo-900 mr-4"
+                    href={`/edit/${post.id}`}
+                  >
+                    Edit
                   </Link>
+                  <button
+                    onClick={() => deletePost(post.id)}
+                    className="text-red-600 hover:text-red-900"
+                  >
+                    Delete
+                  </button> */}
                 </td>
-                <td>Quality Control Specialist</td>
               </tr>
-              {/* row 2 */}
-              <tr>
-                <td>
-                  <div>
-                    <p>Update v.2</p>
-                    <p>ประกาศจากทีมงาน2</p>
-                  </div>
-                </td>
-                <td>Desktop Support Technician</td>
-              </tr>
-              {/* row 3 */}
-              <tr>
-                <td>
-                  <div>
-                    <p>Sport</p>
-                    <p>ทุกเรื่อง, สารพัดกีฬา</p>
-                  </div>
-                </td>
-                <td>Tax Accountant</td>
-              </tr>
-
-              {/* row 4 */}
-              <tr>
-                <td>
-                  <div>
-                    <p>Movies</p>
-                    <p>หนังที่ชื่นชอบ, เรื่องที่โปรดปราน</p>
-                  </div>
-                </td>
-                <td>Tax Accountant</td>
-              </tr>
-
-              {/* row 5 */}
-              <tr>
-                <td>
-                  <div>
-                    <p>Music</p>
-                    <p>ดนตรี, เพลง (ห้ามโพสต์ Link Download เพลง)</p>
-                  </div>
-                </td>
-                <td>Tax Accountant</td>
-              </tr>
+            ))}         
             </tbody>
           </table>
         </div>
@@ -88,3 +99,4 @@ export default function Page() {
     </div>
   );
 }
+  export default List
