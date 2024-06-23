@@ -17,10 +17,10 @@ export async function GET(request, { params }) {
   }
 }
 
-export async function POST(request, { params }) {
+export async function PUT(request, { params }) {
   try {
     const postID = Number(params.id);
-    const { title, content } = await request.json();
+    const { title, content,user } = await request.json();
     const newPost = await prisma.post.update({
       where: {
         id: postID,
@@ -28,6 +28,7 @@ export async function POST(request, { params }) {
       data: {
         title,
         content,
+        user
       },
     });
 
@@ -46,7 +47,7 @@ export async function DELETE(request, { params }) {
       },
     });
 
-    return Response.json(deletePost, { message: "Delete Success ful" });
+    return Response.json({ message: "Delete Success ful" });
   } catch (error) {
     return Response.json(error);
   }

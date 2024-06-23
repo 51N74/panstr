@@ -4,9 +4,17 @@ import { withMiddlewareAuthRequired, getSession } from "@auth0/nextjs-auth0/edge
 export default withMiddlewareAuthRequired(async (req) => {
   const res = NextResponse.next();
 
-  const user = await getSession(req, res);
+  const session = await getSession(req, res);
+  const user = session?.user;
 
   if (!user) {
+    return NextResponse.redirect("/api/auth/login");
+  }
+
+  // ตรวจสอบบทบาทของผู้ใช้
+  const allowedRoles = req.nextUrl.pathname.startsWith('/admin') ? ['Admin'] : ['User', 'Admin'];
+
+  if (!allowedRoles.includes(user.role)) {
     return NextResponse.redirect("/api/auth/login");
   }
 
@@ -14,5 +22,5 @@ export default withMiddlewareAuthRequired(async (req) => {
 });
 
 export const config = {
-  matcher: '/profile',
+  matcher: ['/profile', '/admin/:path*'],
 };

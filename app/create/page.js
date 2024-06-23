@@ -1,19 +1,23 @@
+
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
+
+
 export default function Create() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [author, setAuthor] = useState("");
+
   const router = useRouter();
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/posts", { title, content });
+      await axios.post("/api/posts", { title, content,user:"admin" });
       router.push("/");
     } catch (error) {
       console.error(error);

@@ -20,16 +20,7 @@ import Link from 'next/link'
       console.error(error)
     }
   }
-  const deletePost = async (id) => {
-    try {
-      await axios.delete(`/api/posts/${id}`)
-      fetchPosts()
-    } catch (error) {
-      console.error('Failed to delete the post', error)
-    }
-  }
 
- 
 
   
   return (
@@ -47,7 +38,7 @@ import Link from 'next/link'
           
         </ul>
       </div>
-      <div class="mb-8">
+      <div class="px-8 mb-8">
         <h3 class="text-xl bg-slate-300 p-2">News</h3>
 
         <div className="overflow-x-auto">
@@ -75,7 +66,7 @@ import Link from 'next/link'
 
 
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  {post.author}
+                  {post.user}
 
                   {/* <Link
                     className="text-indigo-600 hover:text-indigo-900 mr-4"
