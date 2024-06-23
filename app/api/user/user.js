@@ -1,5 +1,5 @@
-// pages/api/save-profile.js
-import { getSession } from '@auth0/nextjs-auth0'
+// client.js (ส่วนการดึงข้อมูลจาก Auth0 และบันทึกลงฐานข้อมูล)
+
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
@@ -24,19 +24,4 @@ const saveUserProfile = async (auth0User) => {
   return user
 }
 
-export default async function handler(req, res) {
-  const session = getSession(req, res)
-  if (!session) {
-    res.status(401).send('Unauthorized')
-    return
-  }
-
-  const user = session.user
-  try {
-    const savedUser = await saveUserProfile(user)
-    res.status(201).json(savedUser)
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: error.message })
-  }
-}
+export default saveUserProfile

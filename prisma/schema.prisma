@@ -22,3 +22,12 @@ model Post {
   createdAt DateTime @default(now())
 }
 
+model User {
+  id             String   @id @default(uuid())
+  auth0Id        String   @unique
+  email          String   @unique
+  username           String?
+  profilePicture String?
+  aboutMe String?
+  displayname String?
+}
