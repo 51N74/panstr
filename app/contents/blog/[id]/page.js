@@ -50,7 +50,7 @@ const Blog = ({ params }) => {
               {/*Menu Forums*/}
               <div class="basis-1/5">
                 <p class="text-xl bg-base-200 p-2 text-center	">{post.authorName}</p>
-                
+                <img src={post.authPic}  />
                 <div className="bg-slate-100"></div>
               </div>
 

@@ -20,6 +20,7 @@ model Post {
   content   String
   authorId  Int @default(autoincrement())
   authorName  String
+  authPic String?
   createdAt DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
