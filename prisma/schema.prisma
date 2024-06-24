@@ -18,12 +18,15 @@ model Post {
   id        Int      @id @default(autoincrement())
   title     String
   content   String
-  user    String
+  authorId  Int
+  authorName  String
+  published   Boolean  @default(true)
   createdAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model User {
-  id             String   @id @default(uuid())
+  id        Int      @id @default(autoincrement())
   auth0Id        String   @unique
   email          String   @unique
   username           String?

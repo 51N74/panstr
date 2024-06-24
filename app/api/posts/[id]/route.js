@@ -1,3 +1,4 @@
+import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -18,21 +19,17 @@ export async function GET(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
+  const postID = Number(params.id);
   try {
-    const postID = Number(params.id);
-    const { title, content,user } = await request.json();
-    const newPost = await prisma.post.update({
-      where: {
-        id: postID,
-      },
-      data: {
-        title,
-        content,
-        user
-      },
+    if (user.role !== 'Admin' && post.authorId !== user.sub) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+    const { title, content } = req.body;
+    const updatedPost = await prisma.post.update({
+      where: { id: postID},
+      data: { title, content },
     });
-
-    return Response.json(newPost);
+    return res.status(200).json(updatedPost);
   } catch (error) {
     return Response.json(error);
   }

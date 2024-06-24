@@ -4,20 +4,20 @@ import Link from "next/link";
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 
 export default function Create() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-
+  const { user } = useUser();
   const router = useRouter();
 
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/posts", { title, content,user:"admin" });
+      await axios.post("/api/posts", { title, content,user:user.name });
       router.push("/");
     } catch (error) {
       console.error(error);

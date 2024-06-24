@@ -60,7 +60,7 @@ export default function Header() {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between" href="/profile">
+                <a className="justify-between" href="/user">
                   Profile
                   <span className="badge">New</span>
                 </a>
