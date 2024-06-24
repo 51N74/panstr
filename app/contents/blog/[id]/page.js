@@ -44,12 +44,13 @@ const Blog = ({ params }) => {
 
       {posts.map((post) => (
         <div class="px-8 mb-8">
-          <h3 class="text-xl bg-slate-300 p-2"> หัวข้อ {post.title}</h3>
+          <h3 class="text-xl bg-slate-300 p-2"> หัวข้อ: {post.title}</h3>
           
             <div class="flex flex-row ">
               {/*Menu Forums*/}
               <div class="basis-1/5">
-                <p class="text-xl bg-base-200 p-2 text-center	">{post.user}</p>
+                <p class="text-xl bg-base-200 p-2 text-center	">{post.authorName}</p>
+                
                 <div className="bg-slate-100"></div>
               </div>
 

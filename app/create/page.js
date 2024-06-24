@@ -17,7 +17,7 @@ export default function Create() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/posts", { title, content,user:user.name });
+      await axios.post("/api/posts", { title, content,authorName:user.name });
       router.push("/");
     } catch (error) {
       console.error(error);

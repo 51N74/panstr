@@ -66,7 +66,7 @@ import Link from 'next/link'
 
 
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  {post.user}
+                  {post.authorName}
 
                   {/* <Link
                     className="text-indigo-600 hover:text-indigo-900 mr-4"
