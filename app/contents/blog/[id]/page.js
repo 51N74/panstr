@@ -9,6 +9,7 @@ const Blog = ({ params }) => {
   const { id } = params;
   const [posts, setPosts] = useState([]);
   const { user, error, isLoading } = useUser();
+  const [comments, setComments] = useState([]);
 
   const fetchPosts = async (id) => {
     try {
@@ -24,21 +25,55 @@ const Blog = ({ params }) => {
     }
   };
 
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(`/api/comments/`);
+      const comment_data = response.data;
+      if (Array.isArray(comment_data)) {
+        setComments(comment_data);
+      } else {
+        setComments([comment_data]); // ถ้าไม่ใช่อาร์เรย์ ให้นำมาใส่ในอาร์เรย์
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     if (id) {
       fetchPosts(id);
+      fetchComments();
     }
   }, [id]);
 
   const handleDelete = async (postId) => {
     try {
       await axios.delete(`/api/posts/${postId}`);
-      setPosts(posts.filter(post => post.id !== postId));
+      setPosts(posts.filter((post) => post.id !== postId));
     } catch (error) {
       console.error(error);
     }
   };
-  
+
+  const [content, setContent] = useState("");
+
+  const handleCommentPost = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post("/api/comments", {
+        postId,
+        content,
+        authorName: user.name,
+        authPic: user.picture,
+      });
+      alert("Comment successfully");
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {/*Breadcrumb*/}
@@ -55,13 +90,12 @@ const Blog = ({ params }) => {
 
       {posts.map((post) => (
         <div key={post.id} className="px-8 mb-8">
-          <div className="text-xl bg-slate-300 p-2"> 
-          <h3> หัวข้อ: {post.title}</h3>
-          
+          <div className="text-xl bg-slate-300 p-2">
+            <h3> หัวข้อ: {post.title}</h3>
           </div>
-          
+
           {/* แสดงปุ่ม Delete หาก user.name ตรงกับ post.authorName */}
-        {user && user.name === post.authorName && (
+          {user && user.name === post.authorName && (
             <div>
               <button
                 onClick={() => handleDelete(post.id)}
@@ -69,21 +103,15 @@ const Blog = ({ params }) => {
               >
                 Delete
               </button>
-              
             </div>
           )}
 
-
-
-
-          
-          
-        
-          
           <div className="flex flex-row ">
             {/*Menu Forums*/}
             <div className="basis-1/5">
-              <p className="text-xl bg-base-200 p-2 text-center">{post.authorName}</p>
+              <p className="text-xl bg-base-200 p-2 text-center">
+                {post.authorName}
+              </p>
               <img src={post.authPic} alt={`${post.authorName}'s avatar`} />
               <div className="bg-slate-100"></div>
             </div>
@@ -97,38 +125,54 @@ const Blog = ({ params }) => {
           </div>
 
           {/* Fectch Comments */}
-          <h3 className="text-xl bg-slate-300 p-2">#1 {post.createdAt} </h3>
-
-          <div className="flex flex-row ">
-            <div className="basis-1/5">
-              <p className="text-xl bg-base-200 p-2 text-center">First Comments</p>
-              <img src={post.authPic} alt={`${post.authorName}'s avatar`} />
-              <div className="bg-slate-100"></div>
-            </div>
-
-            <div className="basis-4/5 px-5 ">
+          {comments.map((comment) => (
+            <div key={comment.id}>
               <div>
-                <p>{post.content}</p>
+                <h3 className="text-xl bg-slate-300 p-2">
+                  {comment.id} {comment.createdAt}{" "}
+                </h3>
+                <div className="flex flex-row ">
+                  <div className="basis-1/5">
+                    <p className="text-xl bg-base-200 p-2 text-center">
+                      {comment.authorName}
+                    </p>
+                    {/* <img
+                      src={comment.authPic}
+                      alt={`${comment.authorName}'s avatar`}
+                    /> */}
+                    <div className="bg-slate-100"></div>
+                  </div>
+                  <div className="basis-4/5 px-5">
+                    <div >
+                      <p>{comment.content}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
 
           {/* Form Comment */}
           {user && (
-            <form>
+            <form onSubmit={handleCommentPost}>
               <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
                   <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="col-span-full">
                       <div>
-                        <label htmlFor="content" className="block text-sm font-medium text-gray-700">
-                          Add Comments by 
+                        <label
+                          htmlFor="content"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Add Comments
                         </label>
                         <textarea
                           name="content"
                           id="content"
                           required
+                          value={content}
                           rows={4}
+                          onChange={(e) => setContent(e.target.value)}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         ></textarea>
                       </div>
@@ -138,8 +182,14 @@ const Blog = ({ params }) => {
               </div>
 
               <div className="mt-6 flex items-center justify-end gap-x-6">
-                <Link href="/" className="text-sm font-semibold leading-6 text-gray-900">
-                  <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                <Link
+                  href="/"
+                  className="text-sm font-semibold leading-6 text-gray-900"
+                >
+                  <button
+                    type="button"
+                    className="text-sm font-semibold leading-6 text-gray-900"
+                  >
                     Cancel
                   </button>
                 </Link>

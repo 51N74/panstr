@@ -15,33 +15,36 @@ datasource db {
 
 
 model Post {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   title     String
   content   String
   authorId  Int @default(autoincrement())
-  authorName  String
-  authPic String?
+  authorName String
+  authPic   String?
   createdAt DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt DateTime @updatedAt
+  comments  Comments[] // เพิ่มความสัมพันธ์กับ Comment
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   auth0Id        String   @unique
   email          String   @unique
-  username           String?
+  username       String?
   profilePicture String?
-  aboutMe String?
-  displayname String?
+  aboutMe        String?
+  displayname    String?
 }
 
-model Comments {
+model Comments { // เปลี่ยนชื่อโมเดลเป็น Comment แทน Comments
   id        Int      @id @default(autoincrement())
-  commentId Int
+  postId    Int      // ฟิลด์สำหรับเชื่อมโยงกับ Post
+  post      Post     @relation(fields: [postId], references: [id]) // ความสัมพันธ์กับ Post
   content   String
-  authorName  String
-  authPic String?
+  authorName String
+  authPic   String?
   createdAt DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 }
+
 

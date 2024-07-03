@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 export async function GET() {
   try {
-    return Response.json(await prisma.post.findMany())  
+    return Response.json(await prisma.comments.findMany())  
   } catch (error) {
     return Response.json(error, { status: 500 })
   }
@@ -13,18 +13,16 @@ export async function GET() {
 
 export async function POST(req){
   try {            
-    const { title, content,authorName,authPic } = await req.json()
-    const post = await prisma.post.create({
+    const {postId, content, authorName, authPic} = await req.json()
+    const comments = await prisma.comments.create({
       data: {
-        title,
-        content,
-        authorName,
-        authPic
-        // authorId: user.sub,            
-        // authorName: authorName, 
+        postId: postId,
+        content: content,
+        authorName: authorName,
+        authPic: authPic,
       },
     });
-    return Response.json(post);
+    return Response.json(comments);
     
   
 } catch (error) {
