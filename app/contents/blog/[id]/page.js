@@ -61,8 +61,8 @@ const Blog = ({ params }) => {
     e.preventDefault();
 
     try {
-      await axios.post("/api/comments", {
-        postId,
+      await axios.post(`/api/comments/${id}`, {
+        postId:id,
         content,
         authorName: user.name,
         authPic: user.picture,
