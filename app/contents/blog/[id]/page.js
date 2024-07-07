@@ -106,10 +106,12 @@ const Blog = ({ params }) => {
             </div>
           )}
 
+
+          
           <div className="flex flex-row ">
             {/*Menu Forums*/}
-            <div className="basis-1/5">
-              <p className="text-xl bg-base-200 p-2 text-center">
+            <div className="basis-1/5 p-2">
+              <p className="text-xl  p-2 text-center">
                 {post.authorName}
               </p>
               <img src={post.authPic} alt={`${post.authorName}'s avatar`} />
@@ -151,6 +153,30 @@ const Blog = ({ params }) => {
               </div>
             </div>
           ))}
+
+
+
+          <div className="mt-8 bg-slate-300 p-8">
+            <div className="p-8 bg-slate-200">
+              <div>
+              <h3 className="text-xl p-2 text-center">Please Login to Comment</h3>
+              </div>
+            <div>
+
+              <div className="flex flex-row justify-center">
+              <Link href="/api/auth/login">
+            <button class="btn btn-outline btn-accent px-8 ">Login</button>
+          </Link>
+              </div>
+           
+            </div>
+            
+            </div>
+          </div>
+
+
+          
+          
 
           {/* Form Comment */}
           {user && (
