@@ -14,22 +14,22 @@ export async function GET(request, { params }) {
   }
 
 export async function POST(req){
-    try {            
-      const {postId, content, authorName, authPic} = await req.json()
-      const comments = await prisma.comments.create({
+  const createComment = async (postId, content, authorName, authPic) => {
+    try {
+      const comment = await prisma.comment.create({
         data: {
-          postId: postId,
-          content: content,
-          authorName: authorName,
-          authPic: authPic,
+          content,
+          authorName,
+          authPic,
+          postId,
         },
       });
-      return Response.json(comments);
-      
-    
-  } catch (error) {
-  return new Response(error, {
-  status: 500,
-  })
+      return comment;
+    } catch (error) {
+      console.error('Error creating comment:', error);
+      throw error;
+    }
   }
   }
+
+

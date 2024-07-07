@@ -15,15 +15,15 @@ datasource db {
 
 
 model Post {
-  id        Int       @id @default(autoincrement())
-  title     String
-  content   String
-  authorId  Int @default(autoincrement())
+  id         Int       @id @default(autoincrement())
+  title      String
+  content    String
+  authorId   Int       @default(autoincrement())
   authorName String
-  authPic   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  comments  Comments[] // เพิ่มความสัมพันธ์กับ Comment
+  authPic    String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  comments   Comments[] @relation("PostComments")
 }
 
 model User {
@@ -36,10 +36,10 @@ model User {
   displayname    String?
 }
 
-model Comments { // เปลี่ยนชื่อโมเดลเป็น Comment แทน Comments
+model Comments {
   id        Int      @id @default(autoincrement())
   postId    Int      // ฟิลด์สำหรับเชื่อมโยงกับ Post
-  post      Post     @relation(fields: [postId], references: [id]) // ความสัมพันธ์กับ Post
+  post       Post      @relation(fields: [postId], references: [id], name: "PostComments")
   content   String
   authorName String
   authPic   String?

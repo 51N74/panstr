@@ -61,8 +61,8 @@ const Blog = ({ params }) => {
     e.preventDefault();
 
     try {
-      await axios.post(`/api/comments/${id}`, {
-        postId:id,
+      await axios.post(`/api/comments/`, {
+        postId: id,
         content,
         authorName: user.name,
         authPic: user.picture,
@@ -73,6 +73,8 @@ const Blog = ({ params }) => {
       console.error(error);
     }
   };
+
+ 
 
   return (
     <div>
@@ -106,19 +108,15 @@ const Blog = ({ params }) => {
             </div>
           )}
 
-
-          
           <div className="flex flex-row ">
             {/*Menu Forums*/}
             <div className="basis-1/5 p-2">
-              <p className="text-xl  p-2 text-center">
-                {post.authorName}
-              </p>
+              <p className="text-xl text-center">{post.authorName}</p>
               <img src={post.authPic} alt={`${post.authorName}'s avatar`} />
               <div className="bg-slate-100"></div>
             </div>
 
-            <div className="basis-4/5 px-5 ">
+            <div className="basis-4/5 p-2 ">
               <p className="font-medium border-b-2">{post.title}</p>
               <div>
                 <p>{post.content}</p>
@@ -145,7 +143,7 @@ const Blog = ({ params }) => {
                     <div className="bg-slate-100"></div>
                   </div>
                   <div className="basis-4/5 px-5">
-                    <div >
+                    <div>
                       <p>{comment.content}</p>
                     </div>
                   </div>
@@ -154,33 +152,28 @@ const Blog = ({ params }) => {
             </div>
           ))}
 
-
-
           <div className="mt-8 bg-slate-300 p-8">
             <div className="p-8 bg-slate-200">
               <div>
-              <h3 className="text-xl p-2 text-center">Please Login to Comment</h3>
+                <h3 className="text-xl p-2 text-center">
+                  Please Login to Comment
+                </h3>
               </div>
-            <div>
-
-              <div className="flex flex-row justify-center">
-              <Link href="/api/auth/login">
-            <button class="btn btn-outline btn-accent px-8 ">Login</button>
-          </Link>
+              <div>
+                <div className="flex flex-row justify-center">
+                  <Link href="/api/auth/login">
+                    <button class="btn btn-outline btn-accent px-8 ">
+                      Login
+                    </button>
+                  </Link>
+                </div>
               </div>
-           
-            </div>
-            
             </div>
           </div>
 
-
-          
-          
-
           {/* Form Comment */}
           {user && (
-            <form onSubmit={handleCommentPost}>
+            <form onSubmit={createComment}>
               <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
                   <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
