@@ -20,8 +20,21 @@ export default function ProfileClient() {
           <div>
             <h2 className="text-xl font-semibold">{user.name}</h2>
             <p className="text-gray-600">{user.email}</p>
-            <p><strong>Nickname:</strong> {user.nickname}</p>
+            {editMode ? (
+              <>
+                <input type="text" value={user.nickname} className="input input-bordered" />
+                <input type="email" value={user.email} className="input input-bordered" />
+              </>
+            ) : (
+              <>
+                <p><strong>Nickname:</strong> {user.nickname}</p>
+                <p><strong>Email:</strong> {user.email}</p>
+              </>
+            )}
             <p><strong>Updated at:</strong> {user.updated_at}</p>
+            <button className="btn btn-primary" onClick={() => setEditMode(!editMode)}>
+              {editMode ? 'Save' : 'Edit'}
+            </button>
           </div>
         </div>  
         <div className="flex-1 p-5">
