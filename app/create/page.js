@@ -79,15 +79,13 @@ export default function Create() {
             </h2>
             <select class="select select-primary w-full max-w-xs">
               <option disabled selected>
-                What Room
+                What Room ?
               </option>
               <option>Game of Thrones</option>
               <option>Lost</option>
               <option>Breaking Bad</option>
               <option>Walking Dead</option>
             </select>
-
-            
           </div>
         </div>
 

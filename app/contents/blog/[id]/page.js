@@ -74,8 +74,6 @@ const Blog = ({ params }) => {
     }
   };
 
- 
-
   return (
     <div>
       {/*Breadcrumb*/}
