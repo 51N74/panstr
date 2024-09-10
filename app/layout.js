@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
     <html data-theme="nord" lang="en">
       <UserProvider>
         <body className={inter.className}>
-          <div className="container">
+          <div className="">
             <Header />
               {children}
             <Footer />
