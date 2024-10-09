@@ -110,7 +110,7 @@ const Blog = ({ params }) => {
             {/*Menu Forums*/}
             <div className="basis-1/5 p-2">
               <p className="text-xl text-center">{post.authorName}</p>
-              <img src={post.authPic} alt={`${post.authorName}'s avatar`} />
+              <img src={post.authorImage} alt={`${post.authorName}'s avatar`} />
               <div className="bg-slate-100"></div>
             </div>
 
@@ -169,7 +169,7 @@ const Blog = ({ params }) => {
             </div>
           </div>
 
-          {/* Form Comment */}
+          {/* Form Comment
           {user && (
             <form onSubmit={createComment}>
               <div className="space-y-12">
@@ -219,7 +219,7 @@ const Blog = ({ params }) => {
                 </button>
               </div>
             </form>
-          )}
+          )} */}
         </div>
       ))}
     </div>

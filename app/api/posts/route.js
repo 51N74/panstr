@@ -43,7 +43,7 @@ export async function POST(req) {
         authorName,
         authorImage,
         authorEmail,
-        categoryId
+        categoryId,
         
       },
     });

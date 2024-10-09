@@ -18,6 +18,7 @@ export async function GET(request, { params }) {
   }
 }
 
+
 export async function PUT(request, { params }) {
   const postID = Number(params.id);
   try {

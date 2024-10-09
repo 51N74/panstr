@@ -20,7 +20,7 @@ export async function POST(req){
         data: {
           content,
           authorName,
-          authPic,
+          authorImage,
           postId,
         },
       });

@@ -8,6 +8,14 @@ async function getBlogs() {
   return response.data;
 }
 
+//get POst Bu Category
+async function getPostByCategory(categoryId) {
+  const response = await axios.get(
+    `api/posts?categoryId=${categoryId}`
+  );
+  return response.data;
+}
+
 export default async function Page() {
   const blogs = await getBlogs();
   return (
