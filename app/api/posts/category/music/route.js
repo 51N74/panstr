@@ -8,7 +8,7 @@ export async function GET() {
     return Response.json(await prisma.post.findMany(
       {
         where: {
-          categoryId: 3
+          categoryId: 5
         },
         orderBy: {
           id: 'asc'

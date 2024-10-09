@@ -14,7 +14,7 @@ import Link from 'next/link'
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get('/api/posts/category/mainforum')
+      const res = await axios.get('/api/posts/category/music')
       setPosts(res.data)
     } catch (error) {
       console.error(error)
@@ -37,7 +37,7 @@ import Link from 'next/link'
         </ul>
       </div>
       <div class="px-8 mb-8">
-        <h3 class="text-xl bg-slate-300 p-2">Main Forum</h3>
+        <h3 class="text-xl bg-slate-300 p-2">Music</h3>
 
         <div className="overflow-x-auto">
           <table className="table ">
