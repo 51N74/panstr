@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 
+
   
   const List = ()=>{
     const [posts, setPosts] = useState([])
