@@ -14,7 +14,7 @@ import Link from 'next/link'
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get('/api/posts')
+      const res = await axios.get('/api/posts/category/news')
       setPosts(res.data)
     } catch (error) {
       console.error(error)

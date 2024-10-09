@@ -74,7 +74,7 @@ export default async function Page() {
                 {/* row 4 */}
                 <tr>
                   <td>
-                    <Link className="hover:text-blue-600" href="/contents/forums/movies">
+                    <Link className="hover:text-blue-600" href="/contents/forums/movie">
                       <p>Movies</p>
                       <p>หนังที่ชื่นชอบ, เรื่องที่โปรดปราน</p>
                     </Link>
