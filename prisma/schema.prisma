@@ -14,52 +14,60 @@ datasource db {
 }
 
 
-model User {
-  id        Int      @id @default(autoincrement())
-  auth0Id   String   @unique // Store the unique user ID from Auth0
-  email     String   @unique // Email returned by Auth0
-  username  String?           // Optional: You can store a username if needed
-  posts     Post[]
-  threads   Thread[]
-  comments  Comment[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-
-model Thread {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  posts     Post[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+// model User {
+//   id          Int      @id @default(autoincrement())
+//   username    String   @unique
+//   email       String   @unique
+//   password    String
+//   profilePicture String?
+//   posts       Post[]
+//   comments    Comment[]
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+// }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  content   String
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  thread    Thread?  @relation(fields: [threadId], references: [id])
-  threadId  Int?
-  comments  Comment[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String
+  authorName  String
+  authorImage String
+  authorEmail String   // เปลี่ยนจาก author เป็น authorEmail เพื่อเก็บข้อมูลอีเมลของผู้ใช้จาก Auth0
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  comments    Comment[]
+  tags        PostTag[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
-
 
 model Comment {
   id        Int      @id @default(autoincrement())
   content   String
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
   post      Post     @relation(fields: [postId], references: [id])
   postId    Int
+  userEmail String   // เก็บข้อมูลอีเมลของผู้ใช้จาก Auth0
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  posts       Post[]
+  createdAt   DateTime @default(now())
+}
 
+model Tag {
+  id    Int      @id @default(autoincrement())
+  name  String
+  posts PostTag[]
+}
+
+model PostTag {
+  postId  Int
+  tagId   Int
+  post    Post @relation(fields: [postId], references: [id])
+  tag     Tag  @relation(fields: [tagId], references: [id])
+  @@id([postId, tagId])
+}

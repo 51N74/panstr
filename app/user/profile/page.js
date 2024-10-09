@@ -23,6 +23,7 @@ export default function ProfileClient() {
             <p className="text-gray-600">{user.email}</p>
             <p><strong>Nickname:</strong> {user.nickname}</p>
             <p><strong>Updated at:</strong> {user.updated_at}</p>
+            <p><strong>Email at:</strong> {user.email}</p>
           </div>
         </div>
         
