@@ -44,7 +44,6 @@ export async function POST(req) {
         authorImage,
         authorEmail,
         categoryId,
-        
       },
     });
 

@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
+//get comment
 export async function GET() {
   try {
     return Response.json(await prisma.comments.findMany({
@@ -13,5 +14,8 @@ export async function GET() {
   }
 }
 
-
+//create comment
+export async function POST(){
+  
+}
 
