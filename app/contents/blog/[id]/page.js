@@ -27,24 +27,39 @@ const Blog = ({ params }) => {
     }
   };
 
-  const fetchComments = async () => {
+  // const fetchComments = async (postId) => {
+  //   try {
+  //     // Fetch comments using the postId in the API call
+  //     const response = await axios.get(`/api/comments?postId=${postId}`);
+  //     const commentData = response.data;
+  
+  //     if (Array.isArray(commentData)) {
+  //       setComments(commentData); // Set the comments if it's an array
+  //     } else {
+  //       setComments([commentData]); // If not an array, put it into one
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching comments:", error);
+  //   }
+  // };
+  
+  const fetchComments = async (postId) => {
     try {
-      const response = await axios.get(`/api/comments/`);
-      const comment_data = response.data;
-      if (Array.isArray(comment_data)) {
-        setComments(comment_data);
-      } else {
-        setComments([comment_data]); // ถ้าไม่ใช่อาร์เรย์ ให้นำมาใส่ในอาร์เรย์
-      }
+      // Fetch comments using the postId in the API call
+      const response = await axios.get(`/api/comments?postId=${postId}`);
+      const commentData = response.data;
+  
+      // Ensure commentData is an array before setting the comments state
+      setComments(Array.isArray(commentData) ? commentData : [commentData]);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching comments:", error);
     }
   };
 
   useEffect(() => {
     if (id) {
       fetchPosts(id);
-      fetchComments();
+      fetchComments(id);
     }
   }, [id]);
 
