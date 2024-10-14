@@ -5,13 +5,18 @@ import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useRouter } from "next/navigation";
 
-export default function CommentsForm({ postId },{ userEmail }) {
+export default function CommentsForm({ postId }) {
   const { user, error, isLoading } = useUser();
   const [content, setContent] = useState("");
+  const [comments, setComments] = useState([]); // กำหนด state สำหรับคอมเมนต์
   const router = useRouter();
 
   const handleCommentPost = async (e) => {
     e.preventDefault();
+  
+    console.log('content:', content);
+    console.log('postId:', postId);
+    console.log('user.email:', user?.email);
   
     if (!content || !postId || !user?.email) {
       alert('Please fill in all fields.');
@@ -20,18 +25,36 @@ export default function CommentsForm({ postId },{ userEmail }) {
   
     try {
       // ส่งคอมเมนต์ไปยัง API
-      await axios.post('/api/comments', {
+      const response = await axios.post('/api/comments', {
         content,
         postId,
         userEmail: user.email,  // ส่งอีเมลของผู้ใช้จาก Auth0
       });
-      
-      alert('Comment created successfully');
-      router.reload();  // รีโหลดหน้าเพื่อแสดงคอมเมนต์ใหม่
+  
+      if (response.status === 201 || response.status === 200) {
+        alert('Comment created successfully');
+
+        // อัปเดตคอมเมนต์ใน state โดยไม่ต้องรีโหลดหน้า
+        setComments((prevComments) => [
+          ...prevComments,
+          response.data,  // เพิ่มคอมเมนต์ใหม่ลงในรายการ
+        ]);
+        router.refresh();
+        // ล้างฟิลด์ content หลังจากส่งสำเร็จ
+        setContent("");
+      } else {
+        // Handle non-2xx responses (not success)
+        console.error('Unexpected response:', response);
+        alert('Failed to create comment');
+      }
     } catch (error) {
       console.error('Error submitting comment:', error);
       alert('Failed to create comment');
     }
+  };
+  
+  const handleCancel = () => {
+    setContent('');
   };
 
   return (
@@ -56,16 +79,16 @@ export default function CommentsForm({ postId },{ userEmail }) {
           </div>
         </div>
       </div>
-  
+
       <div className="mt-6 flex justify-end gap-x-6">
         <button
           type="button"
-          onClick={() => setContent('')}  // เคลียร์ค่า content
+          onClick={handleCancel}
           className="text-sm font-semibold leading-6 text-gray-900"
         >
           Cancel
         </button>
-  
+
         <button
           type="submit"
           className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

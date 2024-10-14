@@ -6,13 +6,12 @@ import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import CommentsForm from "/Users/jptns/Documents/Coding/Next-Projects/panstr/app/components/Comments_Form.js";
 import { TrashIcon } from "@heroicons/react/solid";
-
+import { useRouter } from "next/router";
 const Blog = ({ params }) => {
   const { id } = params;
   const [posts, setPosts] = useState([]);
   const { user, error, isLoading } = useUser();
   const [comments, setComments] = useState([]);
-
   const fetchPosts = async (id) => {
     try {
       const response = await axios.get(`/api/posts/${id}`);
@@ -32,7 +31,7 @@ const Blog = ({ params }) => {
   //     // Fetch comments using the postId in the API call
   //     const response = await axios.get(`/api/comments?postId=${postId}`);
   //     const commentData = response.data;
-  
+
   //     if (Array.isArray(commentData)) {
   //       setComments(commentData); // Set the comments if it's an array
   //     } else {
@@ -42,13 +41,13 @@ const Blog = ({ params }) => {
   //     console.error("Error fetching comments:", error);
   //   }
   // };
-  
+
   const fetchComments = async (postId) => {
     try {
       // Fetch comments using the postId in the API call
       const response = await axios.get(`/api/comments?postId=${postId}`);
       const commentData = response.data;
-  
+
       // Ensure commentData is an array before setting the comments state
       setComments(Array.isArray(commentData) ? commentData : [commentData]);
     } catch (error) {
@@ -102,8 +101,8 @@ const Blog = ({ params }) => {
         authorName: user.name,
         authPic: user.picture,
       });
-      alert("Comment successfully");
-      router.push("/");
+      const router = useRouter();
+      router.push(router.asPath); // Reload the page
     } catch (error) {
       console.error(error);
     }
@@ -129,22 +128,21 @@ const Blog = ({ params }) => {
             <div className="flex justify-between items-center">
               <h3> หัวข้อ: {post.title}</h3>
               {user && user.name === post.authorName && (
-              <div className="flex space-x-4">
-                <Link href={`/contents/blog/${post.id}/edit`}>
-                  <button className="bg-blue-500 text-white px-3 py-1 rounded flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="size-6"
-                    >
-                      <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                      <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                    </svg>
-                  </button>
-                </Link>
+                <div className="flex space-x-4">
+                  <Link href={`/contents/blog/${post.id}/edit`}>
+                    <button className="bg-blue-500 text-white px-3 py-1 rounded flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-6"
+                      >
+                        <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                        <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                      </svg>
+                    </button>
+                  </Link>
 
-                
                   <button
                     onClick={() => handleDelete(post.id)}
                     className="bg-red-600 text-white px-3 py-1 rounded flex items-center"
@@ -162,9 +160,8 @@ const Blog = ({ params }) => {
                       />
                     </svg>
                   </button>
-                
-              </div>
-            )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -195,7 +192,7 @@ const Blog = ({ params }) => {
                 <div className="flex flex-row ">
                   <div className="basis-1/5">
                     <p className="text-xl bg-base-200 p-2 text-center">
-                      {comment.authorName}
+                      {comment.userEmail}
                     </p>
                     {/* <img
                       src={comment.authPic}
@@ -213,7 +210,22 @@ const Blog = ({ params }) => {
             </div>
           ))}
 
-          <CommentsForm />
+          {/* check user*/}
+          {!user && (
+            <div className="flex flex-col items-center justify-center my-10">
+              <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+                <h2 className="text-2xl font-bold text-center text-gray-900">
+                  Please Login to Comment
+                </h2>
+                <div className="flex justify-center ">
+                  <Link href="/api/auth/login">
+                    <button class="btn btn-outline btn-accent ">Login</button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+          {user && <CommentsForm {...{ postId: post.id }} />}
         </div>
       ))}
     </div>
