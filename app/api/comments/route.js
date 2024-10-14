@@ -50,10 +50,10 @@ export async function GET(request,{ params }) {
 export async function POST(req) {
   try {
     // Get data from the request
-    const { content, postId, userEmail } = await req.json();
+    const { content, postId, userEmail,commentName,commentImage } = await req.json();
 
     // Validation (you can add more checks here if needed)
-    if (!content || !postId || !userEmail) {
+    if (!content || !postId || !userEmail || !commentName || !commentImage) {
       return new Response(JSON.stringify({ message: "Missing required fields" }), {
         status: 400,
       });
@@ -66,6 +66,8 @@ export async function POST(req) {
           connect: { id: postId }, // ใช้ `connect` เพื่อเชื่อมกับโพสต์ที่มีอยู่
         },
         userEmail, // อีเมลผู้ใช้
+        commentName,
+        commentImage,
       },
     });
     

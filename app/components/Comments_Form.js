@@ -17,8 +17,9 @@ export default function CommentsForm({ postId }) {
     console.log('content:', content);
     console.log('postId:', postId);
     console.log('user.email:', user?.email);
+    console.log('user.name:', user?.name);
   
-    if (!content || !postId || !user?.email) {
+    if (!content || !postId || !user?.email || !user?.name || !user?.picture) {
       alert('Please fill in all fields.');
       return;
     }
@@ -28,7 +29,9 @@ export default function CommentsForm({ postId }) {
       const response = await axios.post('/api/comments', {
         content,
         postId,
-        userEmail: user.email,  // ส่งอีเมลของผู้ใช้จาก Auth0
+        userEmail: user.email,
+        commentName: user.name,
+        commentImage: user.picture,  // ส่งอีเมลของผู้ใช้จาก Auth0
       });
   
       if (response.status === 201 || response.status === 200) {

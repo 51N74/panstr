@@ -98,8 +98,8 @@ const Blog = ({ params }) => {
       await axios.post(`/api/comments/`, {
         postId: id,
         content,
-        authorName: user.name,
-        authPic: user.picture,
+        commentName: user.name,
+        commentImage: user.picture,
       });
       const router = useRouter();
       router.push(router.asPath); // Reload the page
