@@ -168,7 +168,7 @@ const Blog = ({ params }) => {
           <div className="flex flex-row ">
             {/*Menu Forums*/}
             <div className="basis-1/5 p-2">
-              <p className="text-xl text-center">{post.authorName}</p>
+              <p className="text-xl ">{post.authorName}</p>
               <img src={post.authorImage} alt={`${post.authorName}'s avatar`} />
               <div className="bg-slate-100"></div>
             </div>
@@ -187,17 +187,15 @@ const Blog = ({ params }) => {
             <div key={comment.id}>
               <div>
                 <h3 className="text-xl bg-slate-300 p-2">
-                  {comment.id} {comment.createdAt}{" "}
+                  #{comment.id} {" "}
                 </h3>
                 <div className="flex flex-row ">
-                  <div className="basis-1/5">
-                    <p className="text-xl bg-base-200 p-2 text-center">
-                      {comment.userEmail}
-                    </p>
-                    {/* <img
-                      src={comment.authPic}
-                      alt={`${comment.authorName}'s avatar`}
-                    /> */}
+                  <div className="basis-1/5 p-2">
+                    <p className="text-xl">{comment.commentName}</p>
+                    <img
+                      src={comment.commentImage}
+                      alt={`${comment.commentImage}'s avatar`}
+                    />
                     <div className="bg-slate-100"></div>
                   </div>
                   <div className="basis-4/5 px-5">
