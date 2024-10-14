@@ -51,3 +51,18 @@ export async function GET(request,{ params }) {
   }
 }
 
+
+export async function DELETE(request, { params }) {
+  try {
+    const commentID = Number(params.id);
+    const deleteComment = await prisma.comment.delete({
+      where: {
+        id: commentID,
+      },
+    });
+
+    return Response.json({ message: "Delete Success ful" });
+  } catch (error) {
+    return Response.json(error);
+  }
+}
