@@ -2,54 +2,23 @@ import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-
-//Get comment By ID
-// export async function GET(request, { params }) {
-//   try {
-//     const commentID = Number(params.id);
-//     const comment = await prisma.comment.findUnique({
-//       where: {
-//         id: commentID,
-//       },
-//     });
-
-//     return Response.json(comment);
-//   } catch (error) {
-//     return Response.json(error, { status: 500 });
-//   }
-// }
   
-export async function GET(request,{ params }) {
+
+export async function GET(request, { params }) {
   try {
-    // Extract the postId from the query parameters
-    const { searchParams } = new URL(request.url);
-    const postId = searchParams.get('postId'); // Get postId from the URL query
-
-    if (!postId) {
-      return new Response(JSON.stringify({ message: "postId is required" }), {
-        status: 400,
-      });
-    }
-
-    // Fetch comments that match the postId
-    const comments = await prisma.comment.findMany({
+    const commentID = Number(params.id);
+    const comment = await prisma.comment.findUnique({
       where: {
-        postId: Number(postId),
+        id: commentID,
       },
     });
 
-    // Return the comments in the response
-    return new Response(JSON.stringify(comments), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return Response.json(comment);
   } catch (error) {
-    console.error("Error fetching comments:", error.message || error);
-    return new Response(JSON.stringify({ message: "Internal Server Error", details: error.message }), {
-      status: 500,
-    });
+    return Response.json(error, { status: 500 });
   }
 }
+
 
 
 export async function DELETE(request, { params }) {
@@ -64,5 +33,44 @@ export async function DELETE(request, { params }) {
     return Response.json({ message: "Delete Success ful" });
   } catch (error) {
     return Response.json(error);
+  }
+}
+
+// PATCH update an existing comment
+export async function PATCH(request, { params }) {
+  try {
+    // Parse the incoming JSON request body
+    const {content } = await request.json();
+    const { id } = params; // Extract the 'id' from params (URL)
+
+    // Validate the required fields
+    if (!id || !content) {
+      return new Response(JSON.stringify({ message: "Missing required fields" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Update the Comment using Prisma
+    const updatedComment = await prisma.comment.update({
+      where: { id: Number(id) },
+      data: {        
+        content,
+      },
+    });
+
+    // Return the updated post in the response
+    return new Response(JSON.stringify(updatedComment), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("Error updating post:", error.message || error);
+
+    // Return an error response with the details
+    return new Response(JSON.stringify({ message: "Internal Server Error", details: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
