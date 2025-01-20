@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import CommentsForm from "/Users/jptns/Documents/Coding/Next-Projects/panstr/app/components/Comments_Form.js";
+import CommentsForm from "../../../components/Comments_Form";
 import { TrashIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 const Blog = ({ params }) => {
