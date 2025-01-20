@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "Post" ALTER COLUMN "author" DROP DEFAULT,
-ALTER COLUMN "author" SET DATA TYPE TEXT;
