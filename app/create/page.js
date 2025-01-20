@@ -13,19 +13,23 @@ export default function Create() {
   const { user } = useUser();
   const router = useRouter();
 
-  useEffect(() => {
-    // Fetch categories when component mounts
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get("/api/category");
-        setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
+const categories_name = [
+  { id: 1, name: "News" },
+  { id: 2, name: "Main Forum" },
+];
+  // useEffect(() => {
+  //   // Fetch categories when component mounts
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const response = await axios.get("/api/category");
+  //       setCategories(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching categories:", error);
+  //     }
+  //   };
 
-    fetchCategories();
-  }, []);
+  //   fetchCategories();
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,7 +101,7 @@ export default function Create() {
           className="mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-indigo-500 focus:ring-indigo-500"
         >
           <option value="">Select a category</option>
-          {categories.map((category) => (
+          {categories_name.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
             </option>
