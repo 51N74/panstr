@@ -37,7 +37,7 @@ import Link from 'next/link'
           
         </ul>
       </div>
-      <div class="px-8 mb-8">
+      <div class=" container w-full px-8 mb-8">
         <h3 class="text-xl bg-slate-300 p-2">News</h3>
 
         <div className="overflow-x-auto">

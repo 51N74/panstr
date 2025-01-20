@@ -4,7 +4,7 @@ export default function forumsLayout({
     return (
       <section>
         {/* Include shared UI here e.g. a header or sidebar */}
-        <div className="container h-full mx-8">{children}</div>
+        <div className="container h-full w-full ">{children}</div>
    
         
       </section>
