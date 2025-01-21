@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Panstr (พันเตอร์)
 
-## Getting Started
+Panstr is a web-based forum inspired by Thailand's popular platform, Pantip. It allows users to discuss various topics in a user-friendly interface. Built with **Next.js** and **PostgreSQL**, this project aims to eventually integrate the **Nostr Protocol**, creating a truly decentralized forum experience.
 
-First, run the development server:
+## 🌟 Current Features (Phase 1)
+1. **Authentication**: Login seamlessly with **Auth0**.
+2. **Create Posts**: Start discussions by creating your own threads.
+3. **Commenting**: Share your thoughts by commenting on posts.
+4. **Edit Posts & Comments**: Modify your posts and comments to keep the conversation relevant.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🎯 Vision
+The ultimate goal of Panstr is to leverage the **Nostr Protocol** to provide a fully decentralized forum platform where users retain control over their data and communication.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🔧 Technologies Used
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Database**: [PostgreSQL](https://www.postgresql.org/)
+- **Authentication**: [Auth0](https://auth0.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+## 🚀 Future Plans
+- **Nostr Protocol Integration**: Implementing a decentralized backend for enhanced user privacy and data ownership.
+- **Enhanced Features**: Expanding functionalities to make the platform more engaging and user-friendly.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
